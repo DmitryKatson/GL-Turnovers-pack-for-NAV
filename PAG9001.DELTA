@@ -1,0 +1,46 @@
+OBJECT Modification "Accounting Manager Role Center"(Page 9001)
+{
+  OBJECT-PROPERTIES
+  {
+    Date=11/10/17;
+    Time=[ 8:29:40 PM];
+    Modified=Yes;
+    Version List=NAVW110.00,NAVDACH10.00,NAVCH10.00;
+  }
+  PROPERTIES
+  {
+    Target="Accounting Manager Role Center"(Page 9001);
+  }
+  CHANGES
+  {
+    { Insertion         ;InsertAfter=Action 90;
+                         ChangedElements=ActionCollection
+                         {
+                           { 69593   ;1   ;ActionGroup;
+                                           CaptionML=ENU=Turnovers }
+                           { 69592   ;2   ;Action    ;
+                                           Name=Page G/L Account Turnover;
+                                           CaptionML=ENU=G/L Turnover;
+                                           RunObject=Page 69595;
+                                           Image=Turnover }
+                           { 69591   ;2   ;Action    ;
+                                           Name=Page Customer G/L Turnover;
+                                           CaptionML=ENU=Customer Turnover;
+                                           RunObject=Page 69596;
+                                           Image=Turnover }
+                           { 69590   ;2   ;Action    ;
+                                           Name=Page Vendor G/L Turnover;
+                                           CaptionML=ENU=Vendor Turnover;
+                                           RunObject=Page 69597;
+                                           Image=Turnover }
+                         }
+                          }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

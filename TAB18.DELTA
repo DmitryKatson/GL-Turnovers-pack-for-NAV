@@ -1,0 +1,86 @@
+OBJECT Modification Customer(Table 18)
+{
+  OBJECT-PROPERTIES
+  {
+    Date=11/11/17;
+    Time=[ 9:06:04 PM];
+    Modified=Yes;
+    Version List=NAVW110.00,NAVCH10.00;
+  }
+  PROPERTIES
+  {
+    Target=Customer(Table 18);
+  }
+  CHANGES
+  {
+    { Insertion         ;InsertAfter="Copy Sell-to Addr. to Qte From"(Field 7601);
+                         ChangedElements=FieldCollection
+                         {
+                           { 69592;  ;G/L Account Filter  ;Code20        ;FieldClass=FlowFilter;
+                                                                          TableRelation="G/L Account";
+                                                                          CaptionML=ENU=G/L Account Filter;
+                                                                          Description=RUL }
+                           { 69593;  ;G/L Starting Date Filter;Date      ;FieldClass=FlowFilter;
+                                                                          CaptionML=ENU=G/L Starting Date Filter;
+                                                                          Description=RUL }
+                           { 69594;  ;G/L Starting Balance;Decimal       ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry".Amount WHERE (Source Type=CONST(Customer),
+                                                                                                                    Source No.=FIELD(No.),
+                                                                                                                    G/L Account No.=FIELD(G/L Account Filter),
+                                                                                                                    Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                    Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                    Posting Date=FIELD(UPPERLIMIT(G/L Starting Date Filter))));
+                                                                          CaptionML=ENU=G/L Starting Balance;
+                                                                          Description=RUL;
+                                                                          Editable=No }
+                           { 69595;  ;G/L Net Change      ;Decimal       ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry".Amount WHERE (Source Type=CONST(Customer),
+                                                                                                                    Source No.=FIELD(No.),
+                                                                                                                    G/L Account No.=FIELD(G/L Account Filter),
+                                                                                                                    Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                    Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                    Posting Date=FIELD(Date Filter)));
+                                                                          CaptionML=ENU=G/L Net Change;
+                                                                          Description=RUL;
+                                                                          Editable=No }
+                           { 69596;  ;G/L Debit Amount    ;Decimal       ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry"."Debit Amount" WHERE (Source Type=CONST(Customer),
+                                                                                                                            Source No.=FIELD(No.),
+                                                                                                                            G/L Account No.=FIELD(G/L Account Filter),
+                                                                                                                            Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                            Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                            Posting Date=FIELD(Date Filter)));
+                                                                          CaptionML=ENU=G/L Debit Amount;
+                                                                          Description=RUL;
+                                                                          Editable=No }
+                           { 69597;  ;G/L Credit Amount   ;Decimal       ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry"."Credit Amount" WHERE (Source Type=CONST(Customer),
+                                                                                                                             Source No.=FIELD(No.),
+                                                                                                                             G/L Account No.=FIELD(G/L Account Filter),
+                                                                                                                             Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                             Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                             Posting Date=FIELD(Date Filter)));
+                                                                          CaptionML=ENU=G/L Credit Amount;
+                                                                          Description=RUL;
+                                                                          Editable=No }
+                           { 69598;  ;G/L Balance to Date ;Decimal       ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry".Amount WHERE (Source Type=CONST(Customer),
+                                                                                                                    Source No.=FIELD(No.),
+                                                                                                                    G/L Account No.=FIELD(G/L Account Filter),
+                                                                                                                    Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                    Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                    Posting Date=FIELD(UPPERLIMIT(Date Filter))));
+                                                                          CaptionML=ENU=G/L Balance to Date;
+                                                                          Description=RUL;
+                                                                          Editable=No }
+                         }
+                          }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

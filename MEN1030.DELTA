@@ -1,0 +1,132 @@
+OBJECT Modification "Dept - Country CH"(MenuSuite 1030)
+{
+  OBJECT-PROPERTIES
+  {
+    Date=11/11/17;
+    Time=11:22:23 AM;
+    Modified=Yes;
+    Version List=NAVCH10.00;
+  }
+  PROPERTIES
+  {
+    Target="Dept - Country CH"(MenuSuite 1030);
+  }
+  CHANGES
+  {
+    { PropertyModification;
+                         Target=[MenuNode {F97F7CBA-A8FC-4A99-BCA4-C4493B924DB1}];
+                         Property=NextNodeID;
+                         OriginalValue=[{00000000-0000-0000-0000-000000000000}];
+                         ModifiedValue=[{B6799133-D0E9-4F79-9558-A68B96177B1F}] }
+    { PropertyModification;
+                         Target=[MenuNode {DB59B1C0-087E-442B-A5E6-D30FD8F7860C}];
+                         Property=NextNodeID;
+                         OriginalValue=[{70F1BC75-E2F9-4448-9D91-69306CAC7527}];
+                         ModifiedValue=[{CA532485-499D-473B-B91B-CD29CC066FCF}] }
+    { PropertyDeletion  ;Target=["Application Worksheet"(MenuNode {FD14D62D-4D75-42FE-9493-B2A4F5A5479F})];
+                         Property=NextNodeID;
+                         OriginalValue=[{23914472-E072-4C4C-8CB0-1E2C97CEF617}] }
+    { Insertion         ;InsertAfter=["Purchasing Deferral Summary"(MenuNode {3F16024D-349E-4758-AF29-3A22D8D6EE96})];
+                         ChangedElements=MenuNodeCollection
+                         {
+                           { MenuItem       ;[{D6C5F2D3-675F-464F-8FF1-3FDBD9D6BAB6}] ;Name=Item Journal;
+                                                                                       CaptionML=[ENU=Item Journals;
+                                                                                                  DES=Artikel Erfassungsjournale;
+                                                                                                  ITS=Registrazioni magazzino;
+                                                                                                  FRS=Feuilles article];
+                                                                                       ApplicationArea=#Basic,#Suite;
+                                                                                       RunObjectType=Page;
+                                                                                       RunObjectID=40;
+                                                                                       Visible=Yes;
+                                                                                       DepartmentCategory=Tasks }
+                           { MenuItem       ;[{B46AC6FD-FB67-4AEF-8F66-9F6AF49D7070}] ;Name=Item Reclass. Journals;
+                                                                                       CaptionML=[ENU=Item Reclass. Journals;
+                                                                                                  DES=Umlagerungs Erfassungsjournale;
+                                                                                                  ITS=Registrazioni riclassificazioni articoli;
+                                                                                                  FRS=Feuilles reclassement article];
+                                                                                       RunObjectType=Page;
+                                                                                       RunObjectID=393;
+                                                                                       Visible=Yes;
+                                                                                       DepartmentCategory=Tasks }
+                           { MenuItem       ;[{7963BE66-16A8-4740-B3F6-D61FAD6A305B}] ;Name=Phys. Inventory Journals;
+                                                                                       CaptionML=[ENU=Phys. Inventory Journals;
+                                                                                                  DES=Inventur Erfassungsjournale;
+                                                                                                  ITS=Registrazioni inventario fisico;
+                                                                                                  FRS=Feuilles inventaire];
+                                                                                       ApplicationArea=#Basic,#Suite;
+                                                                                       RunObjectType=Page;
+                                                                                       RunObjectID=392;
+                                                                                       Visible=Yes;
+                                                                                       DepartmentCategory=Tasks }
+                           { MenuItem       ;[{B333AB87-A4D6-4234-9566-3110F86C1523}] ;Name=Revaluation Journals;
+                                                                                       CaptionML=[ENU=Revaluation Journals;
+                                                                                                  DES=Neubewertungs Erfassungsjournale;
+                                                                                                  ITS=Registrazioni rivalutazioni;
+                                                                                                  FRS=Feuilles r‚‚valuation];
+                                                                                       ApplicationArea=#Basic,#Suite;
+                                                                                       RunObjectType=Page;
+                                                                                       RunObjectID=5803;
+                                                                                       Visible=Yes;
+                                                                                       DepartmentCategory=Tasks }
+                           { MenuItem       ;[{187737C9-BC96-4F7B-A92C-C522396B3797}] ;Name=Phys. Invt. Counting Periods;
+                                                                                       CaptionML=[ENU=Phys. Invt. Counting Periods;
+                                                                                                  DES=Inventurh„ufigkeiten;
+                                                                                                  ITS=Periodi di conteggio inventario fisico;
+                                                                                                  FRS=P‚riodes inventaire];
+                                                                                       RunObjectType=Page;
+                                                                                       RunObjectID=7381;
+                                                                                       Visible=Yes;
+                                                                                       NextNodeID=[{23914472-E072-4C4C-8CB0-1E2C97CEF617}];
+                                                                                       DepartmentCategory=Lists }
+                           { MenuItem       ;[{CA532485-499D-473B-B91B-CD29CC066FCF}] ;Name=Item Register - Quantity;
+                                                                                       CaptionML=[ENU=Item Register - Quantity;
+                                                                                                  DES=Lagerjournal - Menge;
+                                                                                                  ITS=Registro magazzino - Quantit…;
+                                                                                                  FRS=Hist. trans. article - Qt‚];
+                                                                                       ApplicationArea=#Basic,#Suite;
+                                                                                       RunObjectType=Report;
+                                                                                       RunObjectID=703;
+                                                                                       Visible=Yes;
+                                                                                       NextNodeID=[{70F1BC75-E2F9-4448-9D91-69306CAC7527}];
+                                                                                       DepartmentCategory=Reports and Analysis }
+                           { MenuItem       ;[{B6799133-D0E9-4F79-9558-A68B96177B1F}] ;Name=G/L Account Turnover;
+                                                                                       CaptionML=ENU=G/L Account Turnover;
+                                                                                       ApplicationArea=#Basic,#Suite;
+                                                                                       MemberOfMenu=[{F8D2429D-034B-4C58-9B5E-81BE962DB1BC}];
+                                                                                       RunObjectType=Page;
+                                                                                       RunObjectID=69595;
+                                                                                       ParentNodeID=[{4D1A3284-B7E4-4977-B65B-2F362B8C8F47}];
+                                                                                       Visible=Yes;
+                                                                                       NextNodeID=[{4383E748-3DA1-4BA9-A7DF-20E98B1D29EE}];
+                                                                                       DepartmentCategory=Tasks }
+                           { MenuItem       ;[{4383E748-3DA1-4BA9-A7DF-20E98B1D29EE}] ;Name=Customer G/L Turnover;
+                                                                                       CaptionML=ENU=Customer G/L Turnover;
+                                                                                       ApplicationArea=#Basic,#Suite;
+                                                                                       MemberOfMenu=[{F8D2429D-034B-4C58-9B5E-81BE962DB1BC}];
+                                                                                       RunObjectType=Page;
+                                                                                       RunObjectID=69596;
+                                                                                       ParentNodeID=[{4D1A3284-B7E4-4977-B65B-2F362B8C8F47}];
+                                                                                       Visible=Yes;
+                                                                                       NextNodeID=[{128EBC03-8415-46DD-89C9-CDC92C0F2C1A}];
+                                                                                       DepartmentCategory=Tasks }
+                           { MenuItem       ;[{128EBC03-8415-46DD-89C9-CDC92C0F2C1A}] ;Name=Vendor G/L Turnover;
+                                                                                       CaptionML=ENU=Vendor G/L Turnover;
+                                                                                       ApplicationArea=#Basic,#Suite;
+                                                                                       MemberOfMenu=[{F8D2429D-034B-4C58-9B5E-81BE962DB1BC}];
+                                                                                       RunObjectType=Page;
+                                                                                       RunObjectID=69597;
+                                                                                       ParentNodeID=[{4D1A3284-B7E4-4977-B65B-2F362B8C8F47}];
+                                                                                       Visible=Yes;
+                                                                                       NextNodeID=[{00000000-0000-0000-0000-000000000000}];
+                                                                                       DepartmentCategory=Tasks }
+                         }
+                          }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

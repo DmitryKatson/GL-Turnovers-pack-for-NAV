@@ -1,0 +1,94 @@
+OBJECT Modification "G/L Account"(Table 15)
+{
+  OBJECT-PROPERTIES
+  {
+    Date=11/11/17;
+    Time=[ 9:05:44 PM];
+    Modified=Yes;
+    Version List=NAVW110.00,NAVDACH10.00,NAVCH10.00;
+  }
+  PROPERTIES
+  {
+    Target="G/L Account"(Table 15);
+  }
+  CHANGES
+  {
+    { Insertion         ;InsertAfter="VAT Amount"(Field 11000);
+                         ChangedElements=FieldCollection
+                         {
+                           { 69592;  ;Credit Amount at Date;Decimal      ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry"."Credit Amount" WHERE (G/L Account No.=FIELD(No.),
+                                                                                                                             G/L Account No.=FIELD(FILTER(Totaling)),
+                                                                                                                             Business Unit Code=FIELD(Business Unit Filter),
+                                                                                                                             Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                             Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                             Posting Date=FIELD(UPPERLIMIT(Date Filter)),
+                                                                                                                             Source Type=FIELD(Source Type Filter),
+                                                                                                                             Source No.=FIELD(Source No. Filter)));
+                                                                          CaptionML=ENU=Credit Amount at Date;
+                                                                          Description=RUL;
+                                                                          Editable=No }
+                           { 69593;  ;Debit Amount at Date;Decimal       ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry"."Debit Amount" WHERE (G/L Account No.=FIELD(No.),
+                                                                                                                            G/L Account No.=FIELD(FILTER(Totaling)),
+                                                                                                                            Business Unit Code=FIELD(Business Unit Filter),
+                                                                                                                            Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                            Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                            Posting Date=FIELD(UPPERLIMIT(Date Filter)),
+                                                                                                                            Source Type=FIELD(Source Type Filter),
+                                                                                                                            Source No.=FIELD(Source No. Filter)));
+                                                                          CaptionML=ENU=Debit Amount at Date;
+                                                                          Description=RUL;
+                                                                          Editable=No }
+                           { 69594;  ;Source Type         ;Option        ;CaptionML=ENU=Source Type;
+                                                                          OptionCaptionML=ENU=" ,Customer,Vendor";
+                                                                          OptionString=[ ,Customer,Vendor];
+                                                                          Description=RUL }
+                           { 69595;  ;Source Type Filter  ;Option        ;FieldClass=FlowFilter;
+                                                                          CaptionML=ENU=Source Type Filter;
+                                                                          OptionCaptionML=ENU=" ,Customer,Vendor,Bank Account,Fixed Asset";
+                                                                          OptionString=[ ,Customer,Vendor,Bank Account,Fixed Asset];
+                                                                          Description=RUL }
+                           { 69596;  ;Source No. Filter   ;Code20        ;FieldClass=FlowFilter;
+                                                                          TableRelation=IF (Source Type Filter=FILTER(Customer)) Customer
+                                                                                        ELSE IF (Source Type Filter=FILTER(Vendor)) Vendor
+                                                                                        ELSE IF (Source Type Filter=FILTER(Bank Account)) "Bank Account"
+                                                                                        ELSE IF (Source Type Filter=FILTER(Fixed Asset)) "Fixed Asset";
+                                                                          CaptionML=ENU=Source No. Filter;
+                                                                          Description=RUL }
+                           { 69597;  ;RUL Balance at Date ;Decimal       ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry".Amount WHERE (G/L Account No.=FIELD(No.),
+                                                                                                                    G/L Account No.=FIELD(FILTER(Totaling)),
+                                                                                                                    Business Unit Code=FIELD(Business Unit Filter),
+                                                                                                                    Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                    Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                    Posting Date=FIELD(UPPERLIMIT(Date Filter)),
+                                                                                                                    Source Type=FIELD(Source Type Filter),
+                                                                                                                    Source No.=FIELD(Source No. Filter)));
+                                                                          CaptionML=ENU=Balance at Date;
+                                                                          Description=RUL;
+                                                                          Editable=No }
+                           { 69598;  ;RUL Balance at Date (ACY);Decimal  ;FieldClass=FlowField;
+                                                                          CalcFormula=Sum("G/L Entry"."Additional-Currency Amount" WHERE (G/L Account No.=FIELD(No.),
+                                                                                                                                          G/L Account No.=FIELD(FILTER(Totaling)),
+                                                                                                                                          Business Unit Code=FIELD(Business Unit Filter),
+                                                                                                                                          Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
+                                                                                                                                          Global Dimension 2 Code=FIELD(Global Dimension 2 Filter),
+                                                                                                                                          Posting Date=FIELD(UPPERLIMIT(Date Filter)),
+                                                                                                                                          Source Type=FIELD(Source Type Filter),
+                                                                                                                                          Source No.=FIELD(Source No. Filter)));
+                                                                          CaptionML=ENU=Add.-Currency Balance at Date;
+                                                                          Description=RUL;
+                                                                          Editable=No;
+                                                                          AutoFormatExpr=GetCurrencyCode }
+                         }
+                          }
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+

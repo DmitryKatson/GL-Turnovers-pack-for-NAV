@@ -1,0 +1,35 @@
+OBJECT Codeunit 69595 RUL Turnovers App Mgt.
+{
+  OBJECT-PROPERTIES
+  {
+    Date=11/10/17;
+    Time=[ 7:03:02 PM];
+    Modified=Yes;
+    Version List=RUL;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+          END;
+
+  }
+  CODE
+  {
+
+    PROCEDURE GetAppID@69591() : Text;
+    BEGIN
+      EXIT('3eebe7ce-b87d-4fc1-ac68-125130e867a0')
+    END;
+
+    PROCEDURE OnNavAppUpgradePerCompany@69593();
+    BEGIN
+      //NAVAPP.RESTOREARCHIVEDATA(DATABASE::"G/L Account");
+      //NAVAPP.RESTOREARCHIVEDATA(DATABASE::Customer);
+      //NAVAPP.RESTOREARCHIVEDATA(DATABASE::Vendor);
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

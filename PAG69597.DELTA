@@ -1,0 +1,202 @@
+OBJECT Page 69597 Vendor G/L Turnover
+{
+  OBJECT-PROPERTIES
+  {
+    Date=11/10/17;
+    Time=[ 8:40:48 PM];
+    Modified=Yes;
+    Version List=RUL;
+  }
+  PROPERTIES
+  {
+    CaptionML=ENU=Vendor G/L Turnover;
+    SaveValues=Yes;
+    InsertAllowed=No;
+    DeleteAllowed=No;
+    SourceTable=Table23;
+    PageType=List;
+    OnOpenPage=BEGIN
+                 DateFilter := GETFILTER("Date Filter");
+                 IF DateFilter = '' THEN BEGIN
+                   IF PeriodType = PeriodType::"Accounting Period" THEN
+                     FindPeriodUser('')
+                   ELSE
+                     FindPeriod('');
+                 END ELSE
+                   SETRANGE("G/L Starting Date Filter",GETRANGEMIN("Date Filter") - 1);
+               END;
+
+    ActionList=ACTIONS
+    {
+      { 1900000003;0 ;ActionContainer;
+                      ActionContainerType=RelatedInformation }
+      { 24      ;1   ;ActionGroup;
+                      CaptionML=ENU=&Vendor;
+                      Image=Vendor }
+      { 33      ;2   ;Action    ;
+                      ShortCutKey=Shift+F7;
+                      CaptionML=ENU=Card;
+                      ApplicationArea=#Basic,#Suite;
+                      Image=EditLines;
+                      OnAction=BEGIN
+                                 Vendor.COPY(Rec);
+                                 PAGE.RUN(PAGE::"Vendor Card",Vendor);
+                               END;
+                                }
+      { 1900000004;0 ;ActionContainer;
+                      ActionContainerType=ActionItems }
+      { 20      ;1   ;Action    ;
+                      CaptionML=ENU=Previous Period;
+                      ToolTipML=ENU=Previous Period;
+                      ApplicationArea=#Basic,#Suite;
+                      Promoted=Yes;
+                      PromotedIsBig=Yes;
+                      Image=PreviousRecord;
+                      PromotedCategory=Process;
+                      OnAction=BEGIN
+                                 FindPeriod('<=');
+                               END;
+                                }
+      { 21      ;1   ;Action    ;
+                      CaptionML=ENU=Next Period;
+                      ToolTipML=ENU=Next Period;
+                      ApplicationArea=#Basic,#Suite;
+                      Promoted=Yes;
+                      PromotedIsBig=Yes;
+                      Image=NextRecord;
+                      PromotedCategory=Process;
+                      OnAction=BEGIN
+                                 FindPeriod('>=');
+                               END;
+                                }
+      { 1900000006;0 ;ActionContainer;
+                      ActionContainerType=Reports }
+    }
+  }
+  CONTROLS
+  {
+    { 1900000001;0;Container;
+                ContainerType=ContentArea }
+
+    { 50  ;1   ;Group     ;
+                CaptionML=ENU=Options }
+
+    { 14  ;2   ;Field     ;
+                CaptionML=ENU=View by;
+                ToolTipML=ENU=Day;
+                OptionCaptionML=ENU=Day,Week,Month,Quarter,Year,Accounting Period;
+                ApplicationArea=#Basic,#Suite;
+                SourceExpr=PeriodType;
+                OnValidate=BEGIN
+                             FindPeriod('');
+                             CurrPage.UPDATE;
+                           END;
+                            }
+
+    { 5   ;1   ;Group     ;
+                Editable=FALSE;
+                GroupType=Repeater }
+
+    { 6   ;2   ;Field     ;
+                ApplicationArea=#Basic,#Suite;
+                SourceExpr="No." }
+
+    { 8   ;2   ;Field     ;
+                ApplicationArea=#Basic,#Suite;
+                SourceExpr=Name }
+
+    { 1470000;2;Field     ;
+                SourceExpr="Vendor Posting Group";
+                Visible=FALSE }
+
+    { 31  ;2   ;Field     ;
+                CaptionML=ENU=Starting Balance;
+                ToolTipML=ENU=Specifies the general ledger starting balance associated with the vendor.;
+                ApplicationArea=#Basic,#Suite;
+                BlankZero=Yes;
+                SourceExpr="G/L Starting Balance" }
+
+    { 10  ;2   ;Field     ;
+                CaptionML=ENU=Debit Amount (LCY);
+                ToolTipML=ENU=Specifies the general ledger debit amount associated with the vendor.;
+                ApplicationArea=#Basic,#Suite;
+                BlankNumbers=BlankZero;
+                SourceExpr="G/L Debit Amount" }
+
+    { 12  ;2   ;Field     ;
+                CaptionML=ENU=Credit Amount (LCY);
+                ToolTipML=ENU=Specifies the general ledger credit amount associated with the vendor.;
+                ApplicationArea=#Basic,#Suite;
+                BlankNumbers=BlankZero;
+                SourceExpr="G/L Credit Amount" }
+
+    { 45  ;2   ;Field     ;
+                CaptionML=ENU=Ending Balance;
+                ToolTipML=ENU=Specifies the general ledger balance to date associated with the vendor.;
+                ApplicationArea=#Basic,#Suite;
+                BlankZero=Yes;
+                SourceExpr="G/L Balance to Date" }
+
+    { 35  ;2   ;Field     ;
+                CaptionML=ENU=Net Change (LCY);
+                ToolTipML=ENU=Specifies the general ledger net change associated with the vendor.;
+                BlankZero=Yes;
+                SourceExpr="G/L Net Change";
+                Visible=FALSE }
+
+  }
+  CODE
+  {
+    VAR
+      Vend@1210004 : Record 23;
+      UserPeriods@1210006 : Record 91;
+      Vendor@1210009 : Record 23;
+      PeriodType@1210001 : 'Day,Week,Month,Quarter,Year,Accounting Period';
+      DateFilter@1210000 : Text;
+
+    LOCAL PROCEDURE FindPeriod@1(SearchText@1210000 : Code[10]);
+    VAR
+      Calendar@1210001 : Record 2000000007;
+      PeriodFormManagement@1210003 : Codeunit 359;
+    BEGIN
+      IF GETFILTER("Date Filter") <> '' THEN BEGIN
+        Calendar.SETFILTER("Period Start",GETFILTER("Date Filter"));
+        IF NOT PeriodFormManagement.FindDate('+',Calendar,PeriodType) THEN
+          PeriodFormManagement.FindDate('+',Calendar,PeriodType::Day);
+        Calendar.SETRANGE("Period Start");
+      END;
+      PeriodFormManagement.FindDate(SearchText,Calendar,PeriodType);
+      SETRANGE("Date Filter",Calendar."Period Start",Calendar."Period End");
+      IF GETRANGEMIN("Date Filter") = GETRANGEMAX("Date Filter") THEN
+        SETRANGE("Date Filter",GETRANGEMIN("Date Filter"));
+      SETRANGE("G/L Starting Date Filter",GETRANGEMIN("Date Filter") - 1);
+    END;
+
+    LOCAL PROCEDURE FindPeriodUser@3(SearchText@1210000 : Code[10]);
+    VAR
+      Calendar@1210001 : Record 2000000007;
+      PeriodFormManagement@1210003 : Codeunit 359;
+    BEGIN
+      IF UserPeriods.GET(USERID) THEN BEGIN
+        SETRANGE("Date Filter",UserPeriods."Allow Posting From",UserPeriods."Allow Posting To");
+        IF GETRANGEMIN("Date Filter") = GETRANGEMAX("Date Filter") THEN
+          SETRANGE("Date Filter",GETRANGEMIN("Date Filter"));
+      END ELSE BEGIN
+        IF GETFILTER("Date Filter") <> '' THEN BEGIN
+          Calendar.SETFILTER("Period Start",GETFILTER("Date Filter"));
+          IF NOT PeriodFormManagement.FindDate('+',Calendar,PeriodType) THEN
+            PeriodFormManagement.FindDate('+',Calendar,PeriodType::Day);
+          Calendar.SETRANGE("Period Start");
+        END;
+        PeriodFormManagement.FindDate(SearchText,Calendar,PeriodType);
+        SETRANGE("Date Filter",Calendar."Period Start",Calendar."Period End");
+        IF GETRANGEMIN("Date Filter") = GETRANGEMAX("Date Filter") THEN
+          SETRANGE("Date Filter",GETRANGEMIN("Date Filter"));
+      END;
+    END;
+
+    BEGIN
+    END.
+  }
+}
+

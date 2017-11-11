@@ -1,0 +1,9 @@
+<Package xmlns="http://schemas.microsoft.com/navx/2015/manifest">
+  <App Id="3eebe7ce-b87d-4fc1-ac68-125130e867a0" Name="Turnovers pack" Publisher="Dmitry Katson" Brief="" Description="Include G/L, Customer and Vendors turnovers from RU localization of Dynamics NAV" Version="0.0.1.1" CompatibilityId="1.0.0.0" PrivacyStatement="" EULA="" Help="" Url="" Logo="" />
+  <Capabilities />
+  <Prerequisites>
+    <Objects />
+  </Prerequisites>
+  <Dependencies />
+  <ScreenShots />
+</Package>
