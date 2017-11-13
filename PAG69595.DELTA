@@ -2,8 +2,8 @@ OBJECT Page 69595 G/L Account Turnover
 {
   OBJECT-PROPERTIES
   {
-    Date=11/10/17;
-    Time=[ 8:41:10 PM];
+    Date=11/13/17;
+    Time=[ 8:50:22 PM];
     Modified=Yes;
     Version List=RUL;
   }
@@ -293,7 +293,7 @@ OBJECT Page 69595 G/L Account Turnover
     { 10  ;2   ;Field     ;
                 ApplicationArea=#Basic,#Suite;
                 BlankNumbers=BlankZero;
-                SourceExpr="Debit Amount";
+                SourceExpr="RUL Debit Amount";
                 Style=Strong;
                 StyleExpr=DebitAmountEmphasize;
                 OnDrillDown=BEGIN
@@ -304,7 +304,7 @@ OBJECT Page 69595 G/L Account Turnover
     { 12  ;2   ;Field     ;
                 ApplicationArea=#Basic,#Suite;
                 BlankNumbers=BlankZero;
-                SourceExpr="Credit Amount";
+                SourceExpr="RUL Credit Amount";
                 Style=Strong;
                 StyleExpr=CreditAmountEmphasize;
                 OnDrillDown=BEGIN
@@ -317,7 +317,7 @@ OBJECT Page 69595 G/L Account Turnover
                 CaptionML=ENU=Balance at End Period;
                 ApplicationArea=#Basic,#Suite;
                 BlankZero=Yes;
-                SourceExpr="Balance at Date";
+                SourceExpr="RUL Balance at Date";
                 Style=Strong;
                 StyleExpr=BalanceEndPeriodEmphasize }
 
@@ -337,7 +337,7 @@ OBJECT Page 69595 G/L Account Turnover
 
     { 35  ;2   ;Field     ;
                 BlankZero=Yes;
-                SourceExpr="Net Change";
+                SourceExpr="RUL Net Change";
                 Visible=FALSE;
                 Style=Strong;
                 StyleExpr=NetChangeEmphasize }
@@ -354,7 +354,7 @@ OBJECT Page 69595 G/L Account Turnover
 
     { 59  ;2   ;Field     ;
                 BlankZero=Yes;
-                SourceExpr="Add.-Currency Debit Amount";
+                SourceExpr="RUL Debit Amount (ACY)";
                 Visible=FALSE;
                 OnDrillDown=BEGIN
                               DrillDownGLEntry(2);
@@ -363,7 +363,7 @@ OBJECT Page 69595 G/L Account Turnover
 
     { 61  ;2   ;Field     ;
                 BlankZero=Yes;
-                SourceExpr="Add.-Currency Credit Amount";
+                SourceExpr="RUL Credit Amount (ACY)";
                 Visible=FALSE;
                 OnDrillDown=BEGIN
                               DrillDownGLEntry(3);
@@ -373,12 +373,12 @@ OBJECT Page 69595 G/L Account Turnover
     { 55  ;2   ;Field     ;
                 CaptionML=ENU=ACY Balance at End Period;
                 BlankZero=Yes;
-                SourceExpr="Add.-Currency Balance at Date";
+                SourceExpr="RUL Balance at Date (ACY)";
                 Visible=FALSE }
 
     { 1   ;2   ;Field     ;
                 BlankZero=Yes;
-                SourceExpr="Additional-Currency Net Change";
+                SourceExpr="RUL Net Change (ACY)";
                 Visible=FALSE }
 
     { 1902736301;1;Group  ;
