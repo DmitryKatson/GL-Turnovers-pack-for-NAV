@@ -2,8 +2,8 @@ OBJECT Codeunit 69595 RUL Turnovers App Mgt.
 {
   OBJECT-PROPERTIES
   {
-    Date=11/10/17;
-    Time=[ 7:03:02 PM];
+    Date=11/11/17;
+    Time=10:09:15 PM;
     Modified=Yes;
     Version List=RUL;
   }
@@ -23,9 +23,9 @@ OBJECT Codeunit 69595 RUL Turnovers App Mgt.
 
     PROCEDURE OnNavAppUpgradePerCompany@69593();
     BEGIN
-      //NAVAPP.RESTOREARCHIVEDATA(DATABASE::"G/L Account");
-      //NAVAPP.RESTOREARCHIVEDATA(DATABASE::Customer);
-      //NAVAPP.RESTOREARCHIVEDATA(DATABASE::Vendor);
+      NAVAPP.RESTOREARCHIVEDATA(DATABASE::"G/L Account");
+      NAVAPP.RESTOREARCHIVEDATA(DATABASE::Customer);
+      NAVAPP.RESTOREARCHIVEDATA(DATABASE::Vendor);
     END;
 
     BEGIN
